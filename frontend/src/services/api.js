@@ -1,57 +1,39 @@
-const API_BASE = "/api/watches";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api/watches";
 
 async function handleResponse(response) {
   if (!response.ok) {
-    let message = "Request failed.";
+    let message = "Request failed";
     try {
-      const data = await response.json();
-      message = data.error || message;
+      const body = await response.json();
+      message = body.error || message;
     } catch {
-      // ignore parse failure
+      // noop
     }
     throw new Error(message);
   }
 
-  if (response.status === 204) {
-    return null;
-  }
-
+  if (response.status === 204) return null;
   return response.json();
 }
 
 export const WatchAPI = {
-  async getAllWatches() {
-    const response = await fetch(API_BASE);
-    return handleResponse(response);
-  },
-
-  async getWatchById(id) {
-    const response = await fetch(`${API_BASE}/${id}`);
-    return handleResponse(response);
-  },
-
-  async addWatch(watchData) {
-    const response = await fetch(API_BASE, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(watchData)
-    });
-    return handleResponse(response);
-  },
-
-  async updateWatch(id, watchData) {
-    const response = await fetch(`${API_BASE}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(watchData)
-    });
-    return handleResponse(response);
-  },
-
-  async deleteWatch(id) {
-    const response = await fetch(`${API_BASE}/${id}`, {
-      method: "DELETE"
-    });
-    return handleResponse(response);
-  }
+  getAllWatches: async () => handleResponse(await fetch(API_BASE)),
+  getWatchById: async (id) => handleResponse(await fetch(`${API_BASE}/${id}`)),
+  addWatch: async (watchData) =>
+    handleResponse(
+      await fetch(API_BASE, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(watchData)
+      })
+    ),
+  updateWatch: async (id, watchData) =>
+    handleResponse(
+      await fetch(`${API_BASE}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(watchData)
+      })
+    ),
+  deleteWatch: async (id) => handleResponse(await fetch(`${API_BASE}/${id}`, { method: "DELETE" }))
 };

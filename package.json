@@ -1,11 +1,13 @@
 {
   "name": "chronos-watches",
   "private": true,
-  "version": "1.0.0",
-  "description": "Chronos Watches - reproducible vanilla JavaScript ecommerce demo with Express backend",
+  "version": "2.0.0",
+  "description": "Chronos Watches - React + Vite frontend with Express backend",
   "scripts": {
-    "dev": "npm --prefix backend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
     "start": "npm --prefix backend start",
-    "install:all": "npm install --prefix backend"
+    "install:all": "npm install --prefix backend && npm install --prefix frontend"
   }
 }
