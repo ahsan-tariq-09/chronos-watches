@@ -1,0 +1,55 @@
+{
+    "watches": [
+      {
+        "id": 1,
+        "name": "Classic Chronograph",
+        "brand": "TimeMaster",
+        "price": 249.99,
+        "style": "dress",
+        "movement": "quartz",
+        "stock": 15,
+        "imageUrl": "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80",
+        "description": "Elegant chronograph watch with leather strap and silver case."
+      },
+      {
+        "id": 2,
+        "name": "Diver Pro",
+        "brand": "AquaTime",
+        "price": 599.99,
+        "style": "sports",
+        "movement": "automatic",
+        "stock": 8,
+"imageUrl": "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80",        "description": "Professional diving watch with 200m water resistance and unidirectional bezel."
+      },
+      {
+        "id": 3,
+        "name": "Heritage Limited Edition",
+        "brand": "VintageHorology",
+        "price": 1299.99,
+        "style": "limited edition",
+        "movement": "mechanical",
+        "stock": 3,
+"imageUrl": "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80",        "description": "Limited edition mechanical watch with hand-wound movement and exhibition case back."
+      },
+      {
+        "id": 4,
+        "name": "Urban Minimalist",
+        "brand": "ModaWatch",
+        "price": 179.99,
+        "style": "casual",
+        "movement": "quartz",
+        "stock": 0,
+"imageUrl": "https://images.unsplash.com/photo-1539874754764-5a96559165b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80",        "description": "Sleek minimalist watch with mesh strap and clean dial design."
+      },
+      {
+        "id": 5,
+        "name": "Grand Complication",
+        "brand": "LuxuryTime",
+        "price": 4999.99,
+        "style": "luxury",
+        "movement": "mechanical",
+        "stock": 2,
+"imageUrl": "https://images.unsplash.com/photo-1539874754764-5a96559165b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80",        "description": "Exquisite luxury watch with perpetual calendar and moon phase complication."
+      }
+    ]
+  }

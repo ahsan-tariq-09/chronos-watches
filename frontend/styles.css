@@ -1,0 +1,22 @@
+main {
+  min-height: calc(100vh - 72px);
+}
+
+.card-title {
+  min-height: 3rem;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+.modal-img {
+  max-height: 400px;
+  object-fit: contain;
+  width: 100%;
+}
+
+.invalid-feedback {
+  display: block;
+}

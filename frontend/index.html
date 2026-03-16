@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chronos Watches</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Chronos Watches</a>
+      <div class="ms-auto">
+        <button class="btn btn-outline-light" id="cartBtn" type="button">
+          <i class="bi bi-cart"></i>
+          <span id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mt-4">
+    <section class="mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h1 class="h2 mb-1">Luxury Timepieces</h1>
+          <p class="text-muted mb-0">A curated inventory demo with admin tools.</p>
+        </div>
+        <div id="productCount" class="text-muted">Loading...</div>
+      </div>
+    </section>
+
+    <section id="filters" class="mb-4">
+      <div class="row" id="filterPanel"></div>
+    </section>
+
+    <section id="products" class="mb-5">
+      <div class="row g-4" id="productGrid"></div>
+    </section>
+
+    <section id="admin" class="mb-5 py-5 border-top">
+      <h2 class="h3 mb-4">Inventory Management</h2>
+      <div id="adminPanel"></div>
+    </section>
+  </main>
+
+  <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" id="productModalContent"></div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Your Cart</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="cartModalBody">
+          <p>Your cart is empty.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Continue Shopping</button>
+          <button class="btn btn-primary" id="checkoutBtn" type="button">Proceed to Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="identityModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Identity Verification Required</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="identityForm" novalidate>
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input id="fullName" class="form-control" type="text" required />
+            </div>
+            <div class="mb-3">
+              <label for="idNumber" class="form-label">Government ID Number</label>
+              <input id="idNumber" class="form-control" type="text" required />
+            </div>
+            <div class="mb-3">
+              <label for="idPhoto" class="form-label">Upload ID Photo</label>
+              <input id="idPhoto" class="form-control" type="file" accept="image/*" required />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" id="verifyIdentityBtn" type="button">Submit Verification</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto" id="toastTitle">Notification</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body" id="toastMessage"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
