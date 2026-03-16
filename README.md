@@ -49,19 +49,9 @@ chronos-watches/
 npm install
 ```
 
-> The repository uses **npm workspaces**, so root install pulls frontend + backend dependencies together.
-
 ### 2) Run development servers
 
-#### One command (recommended)
-
-```bash
-npm run dev
-```
-
-This starts backend + frontend concurrently.
-
-#### Or run separately (two terminals)
+In two terminals:
 
 ```bash
 npm run dev:backend
@@ -88,32 +78,6 @@ npm run build
 
 ```bash
 npm start
-```
-
-## Common Windows Troubleshooting
-
-If you see errors like `'vite' is not recognized` or `'nodemon' is not recognized`:
-
-1. Ensure you are in the project root (`chronos-watches/`).
-2. Run a fresh install from root:
-
-```bash
-npm install
-```
-
-3. Then run:
-
-```bash
-npm run dev
-```
-
-If issues persist, remove `node_modules` and lockfile in root + workspaces, then reinstall:
-
-```bash
-# PowerShell
-Remove-Item -Recurse -Force .\node_modules, .\frontend\node_modules, .\backend\node_modules -ErrorAction SilentlyContinue
-Remove-Item -Force .\package-lock.json, .\frontend\package-lock.json, .\backend\package-lock.json -ErrorAction SilentlyContinue
-npm install
 ```
 
 ## API Endpoints (Preserved)

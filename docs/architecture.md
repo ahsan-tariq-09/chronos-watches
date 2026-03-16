@@ -74,8 +74,3 @@ frontend/
 - `POST /api/watches`
 - `PUT /api/watches/:id`
 - `DELETE /api/watches/:id`
-
-
-## Tooling
-
-- Root-level npm scripts use **npm workspaces** to orchestrate `backend/` and `frontend/` from the project root.
