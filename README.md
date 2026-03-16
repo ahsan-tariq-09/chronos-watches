@@ -43,10 +43,10 @@ chronos-watches/
 
 ## Setup
 
-### 1) Install dependencies
+### 1) Install dependencies (from project root)
 
 ```bash
-npm run install:all
+npm install
 ```
 
 ### 2) Run development servers
