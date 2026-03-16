@@ -1,23 +1,21 @@
 # Chronos Watches
 
-Chronos Watches is a portfolio-ready ecommerce-style watch inventory application with a **React + Vite frontend** and an **Express backend**.
+Chronos Watches is a portfolio-ready ecommerce watch inventory application with a **React + Vite frontend** and an **Express backend**.
 
-## Features
+## Highlights
 
-- Product grid with rich cards
-- Search, sort, and multi-filter panel
-- Product detail modal
-- Cart modal with quantity controls
-- Checkout flow
-- Premium watch identity verification flow (required for watches priced above `$1000`)
-- Limited edition purchase restriction (one per customer)
-- Admin CRUD panel for inventory management
-- Loading, empty, and error states
+- Product grid with polished cards and stock badges
+- Coordinated search, sort, and multi-filter experience
+- Product details modal + cart modal
+- Checkout flow with premium watch identity verification
+- Limited edition quantity restriction (one per customer)
+- Admin CRUD panel with inventory search and inline validation
+- Loading skeletons, actionable empty states, and error recovery
 
 ## Tech Stack
 
-- Frontend: React (JavaScript), Vite, Bootstrap 5
-- Backend: Express, JSON file persistence (`backend/db.json`)
+- **Frontend**: React (JavaScript), Vite, Bootstrap 5
+- **Backend**: Express, JSON file persistence (`backend/db.json`)
 
 ## Project Structure
 
@@ -40,6 +38,7 @@ chronos-watches/
     server.js
     db.json
   docs/
+    architecture.md
 ```
 
 ## Setup
