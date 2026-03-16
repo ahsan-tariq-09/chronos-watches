@@ -1,51 +1,81 @@
 # Chronos Watches Architecture
 
 ## Overview
-Chronos Watches is split into:
-- **Frontend**: React + Vite (JavaScript)
-- **Backend**: Express API with file-based persistence (`backend/db.json`)
+Chronos Watches uses a **React + Vite frontend (JavaScript only)** and an **Express backend**.
 
-The backend API contract is stable and the frontend consumes `/api/watches` through a service layer.
+- Backend API contract remains stable under `/api/watches`.
+- Frontend consumes the API through a dedicated service layer.
+- Business rules (premium verification, limited-edition limits, checkout constraints) are centralized in React hooks.
 
 ## Frontend Architecture
 
-### Layers
-- **App shell** (`src/App.jsx`)
-  - Bootstraps data loading, global toast notifications, and modal orchestration.
-- **Page composition** (`src/pages/HomePage.jsx`)
-  - Organizes sections: header, filters, catalog, admin panel.
-- **Hooks**
-  - `useCatalog`: filter/search/sort coordination + derived product list.
-  - `useCart`: cart persistence and business rules (limited edition, premium verification, checkout checks).
-  - `useModal`: reusable modal open/close state with payload support.
-  - `useToast`: ephemeral notification state.
-- **Services**
-  - `WatchAPI`: all backend communication and standardized error handling.
-- **Components**
-  - Reusable UI blocks: cards, filters, modals, admin panel, loading/empty states.
+### Directory Layout
 
-### State Strategy
-No Redux is used. Localized hooks and top-level composition in `App.jsx` provide enough structure while keeping complexity low.
+```text
+frontend/
+  src/
+    App.jsx
+    main.jsx
+    components/
+      AdminPanel.jsx
+      CartModal.jsx
+      EmptyState.jsx
+      FilterPanel.jsx
+      IdentityVerificationModal.jsx
+      LoadingSkeleton.jsx
+      ModalShell.jsx
+      ProductCard.jsx
+      ProductModal.jsx
+      ToastAlert.jsx
+    hooks/
+      useCart.js
+      useCatalog.js
+      useModal.js
+      useToast.js
+    pages/
+      HomePage.jsx
+    services/
+      api.js
+    styles/
+      app.css
+    utils/
+      constants.js
+      filtering.js
+      validation.js
+```
 
-### Business Rules Preserved
-- Limited edition watches: max quantity one per customer.
-- Premium watches (`price > 1000`): require identity verification before checkout.
-- Checkout prevents unverified premium item purchases.
+### State and Composition
+
+- `App.jsx` orchestrates API loading, modals, global notifications, and cross-cutting state wiring.
+- `HomePage.jsx` composes browsing and admin sections while rendering loading/error/empty outcomes.
+- `useCatalog` coordinates search, sorting, filter selections, and filtered output.
+- `useCart` centralizes cart persistence and purchase constraints.
+- `useModal` provides reusable modal open/close behavior with payload support.
+
+### UX Patterns
+
+- Skeleton loading cards for catalog fetches.
+- Professional empty states with clear recovery actions.
+- Reusable modal shell (ESC + backdrop close behavior).
+- Inline validation feedback for admin and identity verification forms.
+- Inventory admin search and stock filter for faster management.
 
 ## Backend Architecture
-- Express server with CRUD endpoints on `/api/watches`.
-- Payload validation in `server.js`.
-- JSON file persistence (`db.json`) with read/write helper functions.
-- In production mode, backend serves built frontend from `frontend/dist`.
 
-## Data Flow
-1. App boot -> `WatchAPI.getAllWatches()`.
-2. `useCatalog` computes filtered/sorted products from raw list + filter state.
-3. User actions (add to cart, admin CRUD, checkout) update local state and/or API.
-4. Admin writes refresh catalog by re-fetching server data.
+- Express API with CRUD endpoints on `/api/watches`.
+- Validation and persistence are handled inside `backend/server.js` with `backend/db.json` storage.
+- Production backend serves the built frontend bundle from `frontend/dist`.
 
-## UX/Resilience Patterns
-- Loading skeletons for catalog fetch.
-- Professional empty states with recovery actions.
-- Inline form validation messages for admin and verification forms.
-- Reusable modal shell with escape/backdrop close behavior.
+## API Contract (Preserved)
+
+- `GET /api/health`
+- `GET /api/watches`
+- `GET /api/watches/:id`
+- `POST /api/watches`
+- `PUT /api/watches/:id`
+- `DELETE /api/watches/:id`
+
+
+## Tooling
+
+- Root-level npm scripts use **npm workspaces** to orchestrate `backend/` and `frontend/` from the project root.

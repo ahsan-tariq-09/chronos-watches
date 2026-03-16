@@ -1,16 +1,16 @@
 # Chronos Watches
 
-Chronos Watches is a portfolio-ready ecommerce watch inventory application with a **React + Vite frontend** and an **Express backend**.
+Chronos Watches is a portfolio-grade ecommerce watch inventory app with a **React + Vite frontend (JavaScript)** and an **Express backend**.
 
 ## Highlights
 
-- Product grid with polished cards and stock badges
-- Coordinated search, sort, and multi-filter experience
-- Product details modal + cart modal
+- Product grid with polished cards and stock-aware actions
+- Coordinated search, sort, and multi-filter panel
+- Product detail modal + cart modal with reusable modal handling
 - Checkout flow with premium watch identity verification
-- Limited edition quantity restriction (one per customer)
-- Admin CRUD panel with inventory search and inline validation
-- Loading skeletons, actionable empty states, and error recovery
+- Limited edition quantity restriction (max one per customer)
+- Admin CRUD panel with inventory search, stock filtering, and inline validation
+- Loading skeletons, resilient error states, and clear empty states
 
 ## Tech Stack
 
@@ -43,13 +43,25 @@ chronos-watches/
 
 ## Setup
 
-### 1) Install dependencies
+### 1) Install dependencies (from project root)
 
 ```bash
-npm run install:all
+npm install
 ```
 
-### 2) Start backend and frontend (separate terminals)
+> The repository uses **npm workspaces**, so root install pulls frontend + backend dependencies together.
+
+### 2) Run development servers
+
+#### One command (recommended)
+
+```bash
+npm run dev
+```
+
+This starts backend + frontend concurrently.
+
+#### Or run separately (two terminals)
 
 ```bash
 npm run dev:backend
@@ -62,9 +74,9 @@ npm run dev:frontend
 - Frontend (Vite): `http://localhost:5173`
 - Backend API: `http://localhost:3000`
 
-The Vite dev server proxies `/api/*` calls to the backend.
+Vite proxies `/api/*` calls to the backend.
 
-## Production Build
+## Production
 
 ### Build frontend
 
@@ -72,13 +84,39 @@ The Vite dev server proxies `/api/*` calls to the backend.
 npm run build
 ```
 
-### Start backend (serves built frontend from `frontend/dist`)
+### Start backend (serves `frontend/dist`)
 
 ```bash
 npm start
 ```
 
-## API Endpoints (preserved)
+## Common Windows Troubleshooting
+
+If you see errors like `'vite' is not recognized` or `'nodemon' is not recognized`:
+
+1. Ensure you are in the project root (`chronos-watches/`).
+2. Run a fresh install from root:
+
+```bash
+npm install
+```
+
+3. Then run:
+
+```bash
+npm run dev
+```
+
+If issues persist, remove `node_modules` and lockfile in root + workspaces, then reinstall:
+
+```bash
+# PowerShell
+Remove-Item -Recurse -Force .\node_modules, .\frontend\node_modules, .\backend\node_modules -ErrorAction SilentlyContinue
+Remove-Item -Force .\package-lock.json, .\frontend\package-lock.json, .\backend\package-lock.json -ErrorAction SilentlyContinue
+npm install
+```
+
+## API Endpoints (Preserved)
 
 - `GET /api/health`
 - `GET /api/watches`
@@ -86,3 +124,7 @@ npm start
 - `POST /api/watches`
 - `PUT /api/watches/:id`
 - `DELETE /api/watches/:id`
+
+## Architecture Notes
+
+See `docs/architecture.md` for frontend state boundaries, hook responsibilities, and business rule ownership.
