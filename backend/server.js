@@ -8,7 +8,7 @@ dotenv.config({ path: path.join(__dirname, "..", ".env") });
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DB_PATH = path.join(__dirname, "db.json");
-const FRONTEND_PATH = path.join(__dirname, "..", "frontend");
+const FRONTEND_PATH = path.join(__dirname, "..", "frontend", "dist");
 
 app.use(express.json());
 app.use(express.static(FRONTEND_PATH));
@@ -196,7 +196,11 @@ app.delete("/api/watches/:id", async (req, res) => {
 });
 
 app.get("*", (_req, res) => {
-  res.sendFile(path.join(FRONTEND_PATH, "index.html"));
+  res.sendFile(path.join(FRONTEND_PATH, "index.html"), (error) => {
+    if (error) {
+      res.status(500).send("Frontend build not found. Run `npm --prefix frontend run build`.");
+    }
+  });
 });
 
 app.listen(PORT, () => {
