@@ -49,14 +49,12 @@ chronos-watches/
 npm run install:all
 ```
 
-### 2) Run backend + frontend
+### 2) Start backend and frontend (separate terminals)
 
-Terminal 1:
 ```bash
 npm run dev:backend
 ```
 
-Terminal 2:
 ```bash
 npm run dev:frontend
 ```
@@ -64,23 +62,23 @@ npm run dev:frontend
 - Frontend (Vite): `http://localhost:5173`
 - Backend API: `http://localhost:3000`
 
-Vite proxies `/api/*` requests to the backend during development.
+The Vite dev server proxies `/api/*` calls to the backend.
 
-## Production
+## Production Build
 
-Build frontend:
+### Build frontend
 
 ```bash
 npm run build
 ```
 
-Run backend (serves built frontend from `frontend/dist`):
+### Start backend (serves built frontend from `frontend/dist`)
 
 ```bash
 npm start
 ```
 
-## API Endpoints (Preserved)
+## API Endpoints (preserved)
 
 - `GET /api/health`
 - `GET /api/watches`
@@ -88,7 +86,3 @@ npm start
 - `POST /api/watches`
 - `PUT /api/watches/:id`
 - `DELETE /api/watches/:id`
-
-## Architecture Notes
-
-See [`docs/architecture.md`](docs/architecture.md) for architecture, data flow, and frontend state management details.
