@@ -1,76 +1,71 @@
 # Chronos Watches Architecture
 
 ## Overview
-Chronos Watches uses a **React + Vite frontend (JavaScript only)** and an **Express backend**.
 
-- Backend API contract remains stable under `/api/watches`.
-- Frontend consumes the API through a dedicated service layer.
-- Business rules (premium verification, limited-edition limits, checkout constraints) are centralized in React hooks.
+Chronos Watches now uses a **FastAPI backend** with a **React + TypeScript frontend**.
 
-## Frontend Architecture
+- The backend persists catalogue data in `backend/watches.json` and protects file reads/writes with a process-local lock.
+- The frontend consumes the API through an Axios wrapper and uses typed models shared across pages/components.
+- The application is deployable as split services or as one combined service where FastAPI serves `frontend/dist`.
 
-### Directory Layout
+## Frontend architecture
 
 ```text
 frontend/
   src/
-    App.jsx
-    main.jsx
+    App.tsx
+    main.tsx
+    api/
+      client.ts
+      watches.ts
     components/
-      AdminPanel.jsx
-      CartModal.jsx
-      EmptyState.jsx
-      FilterPanel.jsx
-      IdentityVerificationModal.jsx
-      LoadingSkeleton.jsx
-      ModalShell.jsx
-      ProductCard.jsx
-      ProductModal.jsx
-      ToastAlert.jsx
-    hooks/
-      useCart.js
-      useCatalog.js
-      useModal.js
-      useToast.js
+      AdminPanel.tsx
+      CartModal.tsx
+      FilterPanel.tsx
+      LoadingSkeleton.tsx
+      ProductCard.tsx
+      ProductModal.tsx
     pages/
-      HomePage.jsx
-    services/
-      api.js
-    styles/
-      app.css
+      HomePage.tsx
+    types/
+      watch.ts
     utils/
-      constants.js
-      filtering.js
-      validation.js
+      filtering.ts
+      watchFormSchema.ts
 ```
 
-### State and Composition
+### State and composition
 
-- `App.jsx` orchestrates API loading, modals, global notifications, and cross-cutting state wiring.
-- `HomePage.jsx` composes browsing and admin sections while rendering loading/error/empty outcomes.
-- `useCatalog` coordinates search, sorting, filter selections, and filtered output.
-- `useCart` centralizes cart persistence and purchase constraints.
-- `useModal` provides reusable modal open/close behavior with payload support.
+- `App.tsx` owns data fetching, filter state, cart state, modal state, and admin CRUD refresh behavior.
+- `HomePage.tsx` renders the catalogue summary, filter sidebar, skeleton cards, empty state, and responsive product grid.
+- `FilterPanel.tsx` derives unique values for brand/style/movement/material/strap filters from live watch data.
+- `AdminPanel.tsx` uses React Hook Form + Zod for accessible validation and edit/add flows.
 
-### UX Patterns
+## Backend architecture
 
-- Skeleton loading cards for catalog fetches.
-- Professional empty states with clear recovery actions.
-- Reusable modal shell (ESC + backdrop close behavior).
-- Inline validation feedback for admin and identity verification forms.
-- Inventory admin search and stock filter for faster management.
+```text
+backend/
+  main.py
+  watches.json
+  tests/
+    test_main.py
+```
 
-## Backend Architecture
+- `main.py` defines the FastAPI app, Pydantic models, CRUD routes, CORS handling, and optional static-file serving for the built frontend.
+- `WatchStore` encapsulates file-backed persistence, validation parsing, and thread-safe read/write access.
+- `tests/test_main.py` exercises health, list, create, update, delete, and validation scenarios with `TestClient`.
 
-- Express API with CRUD endpoints on `/api/watches`.
-- Validation and persistence are handled inside `backend/server.js` with `backend/db.json` storage.
-- Production backend serves the built frontend bundle from `frontend/dist`.
+## API contract
 
-## API Contract (Preserved)
+- `GET /health`
+- `GET /watches`
+- `GET /watches/{watch_id}`
+- `POST /watches`
+- `PUT /watches/{watch_id}`
+- `DELETE /watches/{watch_id}`
 
-- `GET /api/health`
-- `GET /api/watches`
-- `GET /api/watches/:id`
-- `POST /api/watches`
-- `PUT /api/watches/:id`
-- `DELETE /api/watches/:id`
+## Deployment
+
+- `frontend/Dockerfile` builds the Vite app and serves it with `vite preview`.
+- `backend/Dockerfile` runs Uvicorn and can serve `frontend/dist` when the built assets are copied in.
+- `docker-compose.yml` wires the services together for local containerized testing.

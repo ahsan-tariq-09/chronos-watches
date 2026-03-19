@@ -1,18 +1,18 @@
 {
   "name": "chronos-watches",
   "private": true,
-  "version": "2.0.1",
-  "description": "Chronos Watches - React + Vite frontend with Express backend",
+  "version": "3.0.0",
+  "description": "Chronos Watches - FastAPI backend with React + TypeScript frontend",
   "workspaces": [
-    "backend",
     "frontend"
   ],
   "scripts": {
     "dev": "node scripts/dev.js",
-    "dev:backend": "npm run dev -w backend",
+    "dev:backend": "cd backend && . .venv/bin/activate 2>/dev/null || true; uvicorn main:app --reload --host 0.0.0.0 --port 8000",
     "dev:frontend": "npm run dev -w frontend",
     "build": "npm run build -w frontend",
-    "start": "npm run start -w backend",
-    "install:all": "npm install"
+    "test": "npm run test -w frontend && cd backend && . .venv/bin/activate 2>/dev/null || true; pytest",
+    "install:frontend": "npm install -w frontend",
+    "install:backend": "python3 -m venv backend/.venv && backend/.venv/bin/pip install -r backend/requirements.txt"
   }
 }

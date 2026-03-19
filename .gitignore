@@ -1,6 +1,13 @@
-node_modules/
-backend/node_modules/
-.env
+*.pyc
+*.tsbuildinfo
 .DS_Store
+.env
 Thumbs.db
+__pycache__/
+backend/.venv/
+backend/node_modules/
+frontend/.env
+frontend/dist/
+frontend/node_modules/
+node_modules/
 npm-debug.log*

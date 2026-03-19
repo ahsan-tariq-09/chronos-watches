@@ -2,8 +2,8 @@ const { spawn } = require('child_process');
 
 const procs = [];
 
-function run(name, args, color) {
-  const proc = spawn('npm', args, { shell: true, stdio: 'pipe' });
+function run(name, command, color) {
+  const proc = spawn(command, { shell: true, stdio: 'pipe' });
   procs.push(proc);
 
   proc.stdout.on('data', (chunk) => process.stdout.write(`${color}[${name}]\x1b[0m ${chunk}`));
@@ -27,5 +27,5 @@ function shutdown(code = 0) {
 process.on('SIGINT', () => shutdown(0));
 process.on('SIGTERM', () => shutdown(0));
 
-run('backend', ['run', 'dev:backend'], '\x1b[32m');
-run('frontend', ['run', 'dev:frontend'], '\x1b[36m');
+run('backend', 'cd backend && . .venv/bin/activate 2>/dev/null || true; uvicorn main:app --reload --host 0.0.0.0 --port 8000', '\x1b[32m');
+run('frontend', 'npm run dev -w frontend', '\x1b[36m');
