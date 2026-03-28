@@ -1,0 +1,40 @@
+{
+  "homepage": {
+    "hero": {
+      "eyebrow": "Luxury watch catalogue",
+      "title": "Timeless watches for collectors and modern explorers",
+      "subtitle": "Browse curated timepieces, compare details, and build your cart with live inventory from the catalog.",
+      "primaryCtaLabel": "Shop collection",
+      "secondaryCtaLabel": "View featured"
+    },
+    "highlights": [
+      {
+        "id": "craftsmanship",
+        "title": "Craftsmanship",
+        "description": "Premium materials, refined finishing, and collector-focused details."
+      },
+      {
+        "id": "inventory",
+        "title": "Live inventory",
+        "description": "Every stock change comes directly from the backend data file."
+      },
+      {
+        "id": "shipping",
+        "title": "Concierge support",
+        "description": "Need help choosing a watch? Reach out before checkout."
+      }
+    ],
+    "featuredSectionTitle": "Featured watches",
+    "catalogSectionTitle": "Full collection"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "subtitle": "Review your items before submitting your order request.",
+    "notice": "This demo does not process card payments. Submit your order request and complete payment through an approved provider later.",
+    "supportEmail": "support@example.com",
+    "shippingLabel": "Standard shipping",
+    "shippingCost": 35,
+    "taxRate": 0.08,
+    "allowOrderNotes": true
+  }
+}

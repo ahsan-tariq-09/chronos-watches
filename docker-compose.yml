@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      VITE_API_BASE_URL: http://backend:8000
+    ports:
+      - '4173:4173'
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      FRONTEND_ORIGIN: http://localhost:4173
+      PORT: 8000
+    ports:
+      - '8000:8000'
